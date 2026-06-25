@@ -1,11 +1,12 @@
-import * as React from "react";
 import Link from "next/link";
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-import { footerNavigation, legalNavigation } from "@/data/navigation";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { legalNavigation } from "@/data/navigation";
 import { siteConfig } from "@/config/site";
+import { contactConfig } from "@/config/contact";
 import Container from "../container";
+import FooterLinks from "./FooterLinks";
 
-export const Footer = () => {
+export default function Footer() {
   return (
     <footer className="bg-primary text-slate-400 border-t border-slate-800 font-sans">
       {/* Top Footer Section */}
@@ -16,55 +17,34 @@ export const Footer = () => {
             <div className="lg:col-span-2 space-y-6">
               <Link href="/" className="inline-block select-none">
                 <span className="text-xl font-bold tracking-wider uppercase text-white">
-                  Hardware<span className="text-accent">Platform</span>
+                  {siteConfig.name}
                 </span>
               </Link>
               <p className="text-sm leading-relaxed text-slate-400 max-w-sm">
-                India's leading integrated B2B product discovery catalog for premium architectural fittings, high-frequency locks, and industrial configurations.
+                {siteConfig.description}
               </p>
               
               {/* Quick Contact Block */}
               <div className="space-y-3 pt-2">
                 <div className="flex items-center space-x-3 text-sm text-slate-300">
                   <Phone size={16} className="text-accent flex-shrink-0" />
-                  <span>{siteConfig.contact.phone}</span>
+                  <span>{contactConfig.phone}</span>
                 </div>
                 <div className="flex items-center space-x-3 text-sm text-slate-300">
                   <Mail size={16} className="text-accent flex-shrink-0" />
-                  <span>{siteConfig.contact.email}</span>
+                  <span>{contactConfig.email}</span>
                 </div>
                 <div className="flex items-start space-x-3 text-sm text-slate-300">
                   <MapPin size={16} className="text-accent flex-shrink-0 mt-0.5" />
                   <span>
-                    {siteConfig.contact.address.line1}, {siteConfig.contact.address.city} - {siteConfig.contact.address.pincode}, {siteConfig.contact.address.country}
+                    {contactConfig.address.country}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Categorized Links Columns */}
-            {footerNavigation.map((group) => (
-              <div key={group.title} className="space-y-4">
-                <h4 className="text-white text-xs font-bold uppercase tracking-wider">
-                  {group.title}
-                </h4>
-                <ul className="space-y-2.5 text-sm">
-                  {group.items.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="hover:text-white transition-colors duration-300 flex items-center group gap-1"
-                      >
-                        <span>{item.name}</span>
-                        {item.href.startsWith("http") && (
-                          <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                        )}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Categorized Footer links mapping */}
+            <FooterLinks />
           </div>
         </Container>
       </div>
@@ -75,7 +55,7 @@ export const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
               <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
-              <p className="text-slate-600 mt-1">Unified showcase platform for architectural and manufacturing systems.</p>
+              <p className="text-slate-600 mt-1">{siteConfig.tagline}</p>
             </div>
             
             {/* Legal Menu */}
@@ -95,6 +75,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
