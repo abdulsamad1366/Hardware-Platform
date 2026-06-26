@@ -17,7 +17,7 @@ export default function MarqueeRow({ items, direction = "left" }: MarqueeRowProp
     : "animate-marquee-right-slow";
 
   return (
-    <div className="group relative w-full h-[50px] flex items-center overflow-hidden bg-[#0F172A]">
+    <div className="group relative w-full h-[80px] flex items-center overflow-hidden bg-[#0F172A]">
       {/* Premium Ambient Edge Fades */}
       <div className="absolute top-0 bottom-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#0F172A] to-transparent z-10 pointer-events-none" />
       <div className="absolute top-0 bottom-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#0F172A] to-transparent z-10 pointer-events-none" />

@@ -1,17 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Shield, Download, Star, Award, Settings, Send, Search, ChevronDown } from "lucide-react";
 import Container from "@/components/layout/container";
 import InfiniteMarquee from "@/components/home/marquee/InfiniteMarquee";
+import Categories from "@/components/home/categories/Categories";
+import FeaturedCollections from "@/components/home/collections/FeaturedCollections";
+import FeaturedProducts from "@/components/home/products/FeaturedProducts";
+import ManufacturingExcellence from "@/components/home/manufacturing/ManufacturingExcellence";
 
 export default function Home() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const backgroundImages = [
+    "/images/hero-bg.png",
+    "/images/hero-handle.png",
+    "/images/hero-smartlock.png",
+    "/images/hero-hinge.png",
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % backgroundImages.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [backgroundImages.length]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,20 +47,28 @@ export default function Home() {
       <main className="flex-grow">
         <section className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[90vh] min-h-[550px] lg:min-h-[620px] flex items-center overflow-hidden bg-primary text-white border-b border-slate-800/50">
           
-          {/* Background Image Layer with Zoom Animation */}
+          {/* Background Image Slideshow Layer with Zoom Animation */}
           <div className="absolute inset-0 z-0 overflow-hidden">
-            <Image
-              src="/images/hero-bg.png"
-              alt="SecureLink B2B Hardware Lifestyle Collection"
-              fill
-              priority
-              className="object-cover animate-bg-zoom filter blur-[1px] brightness-[0.70]"
-              sizes="100vw"
-            />
+            {backgroundImages.map((src, index) => (
+              <div
+                key={src}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  index === currentSlide ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <Image
+                  src={src}
+                  alt={`SecureLink B2B Hardware Lifestyle Collection Slide ${index + 1}`}
+                  fill
+                  priority={index === 0}
+                  className="object-cover animate-bg-zoom brightness-[0.80]"
+                  sizes="100vw"
+                />
+              </div>
+            ))}
             {/* Overlay Gradient Layers */}
-            <div className="absolute inset-0 bg-[#0F172A]/75 z-0" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-[#0F172A]/40 z-0" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#0F172A_80%)] z-0 opacity-80" />
+            <div className="absolute inset-0 bg-[#0F172A]/60 z-0" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/20 to-transparent z-0" />
           </div>
 
           <Container className="relative z-10 w-full h-full flex flex-col justify-between py-10 lg:py-16">
@@ -165,6 +192,18 @@ export default function Home() {
 
         {/* Infinite Hardware Marquee */}
         <InfiniteMarquee />
+
+        {/* Browse Categories Section */}
+        <Categories />
+
+        {/* Featured Collections Section */}
+        <FeaturedCollections />
+
+        {/* Featured Products Section */}
+        <FeaturedProducts />
+
+        {/* Manufacturing Excellence Section */}
+        <ManufacturingExcellence />
 
         {/* Feature Highlights */}
         <section className="py-24 bg-gray-bg px-6">

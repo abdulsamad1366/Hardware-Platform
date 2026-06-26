@@ -1,115 +1,84 @@
-export interface Subcategory {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  image?: string;
-}
-
 export interface Category {
   id: string;
   name: string;
   slug: string;
   description: string;
   image: string;
-  subcategories: Subcategory[];
+  productCount: string;
+  subcategories: string[];
 }
 
 export const categories: Category[] = [
   {
-    id: "cat-architectural",
-    name: "Architectural Hardware",
-    slug: "architectural-hardware",
-    description: "Premium commercial and luxury residential hinges, closers, and structural components.",
-    image: "/images/categories/architectural.jpg",
-    subcategories: [
-      {
-        id: "sub-hinges",
-        name: "Butt & Pivot Hinges",
-        slug: "butt-pivot-hinges",
-        description: "Heavy-duty ball-bearing butt hinges and adjustable offset pivot systems."
-      },
-      {
-        id: "sub-closers",
-        name: "Door Closers & Floor Springs",
-        slug: "door-closers-floor-springs",
-        description: "Overhead rack-and-pinion closers and heavy-duty double-action floor springs."
-      },
-      {
-        id: "sub-levers",
-        name: "Premium Lever Handles",
-        slug: "premium-lever-handles",
-        description: "Solid forged brass and stainless steel handles mounted on rose or plate fittings."
-      }
-    ]
+    id: "locks",
+    name: "Locks",
+    slug: "locks",
+    description: "High-security mechanical locks, cylinders, deadbolts, and sashlocks.",
+    image: "/images/cat-locks.png",
+    productCount: "420+ Products",
+    subcategories: ["Mortise Locks", "Padlocks", "Cylinders"],
   },
   {
-    id: "cat-security",
-    name: "Locks & Security Systems",
-    slug: "locks-security-systems",
-    description: "High-security locking solutions, electronic locks, keying systems, and exit devices.",
-    image: "/images/categories/security.jpg",
-    subcategories: [
-      {
-        id: "sub-mortise",
-        name: "Mortise Lock Bodies",
-        slug: "mortise-lock-bodies",
-        description: "Standard sashlocks, deadlocks, and roller bolt locks meeting BS/EN standards."
-      },
-      {
-        id: "sub-cylinders",
-        name: "Euro Profile Cylinders",
-        slug: "euro-profile-cylinders",
-        description: "Anti-snap, anti-pick profile cylinders with master-keying options."
-      },
-      {
-        id: "sub-digital",
-        name: "Electronic Smart Locks",
-        slug: "electronic-smart-locks",
-        description: "Keyless biometric, RFID card, and passcode locking mechanisms."
-      }
-    ]
+    id: "door-hardware",
+    name: "Door Hardware",
+    slug: "door-hardware",
+    description: "Premium door handles, levers, pull handles, plates, and accessories.",
+    image: "/images/hero-handle.png",
+    productCount: "850+ Products",
+    subcategories: ["Lever Handles", "Pull Handles", "Door Closers"],
   },
   {
-    id: "cat-glass",
-    name: "Glass Fittings",
-    slug: "glass-fittings",
-    description: "Frameless glass architecture connectors, patch fittings, and shower enclosures.",
-    image: "/images/categories/glass.jpg",
-    subcategories: [
-      {
-        id: "sub-patches",
-        name: "Patch Fittings",
-        slug: "patch-fittings",
-        description: "Base and corner patch fittings for frameless tempered glass doors."
-      },
-      {
-        id: "sub-shower",
-        name: "Shower Hinges & Clamps",
-        slug: "shower-hinges-clamps",
-        description: "Wall-to-glass and glass-to-glass self-closing shower hinges."
-      }
-    ]
+    id: "glass-hardware",
+    name: "Glass Hardware",
+    slug: "glass-hardware",
+    description: "Frameless glass connectors, patch fittings, glass pivots, and sliders.",
+    image: "/images/cat-glass.png",
+    productCount: "340+ Products",
+    subcategories: ["Patch Fittings", "Glass Hinges", "Sliding Systems"],
   },
   {
-    id: "cat-cabinet",
-    name: "Cabinet & Furniture Hardware",
-    slug: "cabinet-furniture-hardware",
-    description: "Luxury drawer slides, soft-close hinges, and designer cabinet knobs.",
-    image: "/images/categories/cabinet.jpg",
-    subcategories: [
-      {
-        id: "sub-pulls",
-        name: "Cabinet Pulls & Knobs",
-        slug: "cabinet-pulls-knobs",
-        description: "Contemporary, modern, and traditional drawer handles."
-      },
-      {
-        id: "sub-slides",
-        name: "Soft-Close Drawer Slides",
-        slug: "soft-close-drawer-slides",
-        description: "Telescopic runner slides and under-mount drawer runner systems."
-      }
-    ]
-  }
+    id: "furniture-hardware",
+    name: "Furniture Hardware",
+    slug: "furniture-hardware",
+    description: "Luxurious cabinet pulls, drawer slides, furniture hinges, and knobs.",
+    image: "/images/cat-furniture.png",
+    productCount: "620+ Products",
+    subcategories: ["Cabinet Handles", "Drawer Slides", "Knobs"],
+  },
+  {
+    id: "bathroom-accessories",
+    name: "Bathroom Accessories",
+    slug: "bathroom-accessories",
+    description: "Modern shower glass hinges, clamps, towel rails, and soap holders.",
+    image: "/images/cat-bathroom.png",
+    productCount: "280+ Products",
+    subcategories: ["Shower Hinges", "Glass Clamps", "Towel Rails"],
+  },
+  {
+    id: "builder-hardware",
+    name: "Builder Hardware",
+    slug: "builder-hardware",
+    description: "Heavy-duty concealed hinges, door closers, floor springs, and fasteners.",
+    image: "/images/hero-hinge.png",
+    productCount: "510+ Products",
+    subcategories: ["Hinges", "Tower Bolts", "Door Stops"],
+  },
+  {
+    id: "smart-locks",
+    name: "Smart Locks",
+    slug: "smart-locks",
+    description: "Keyless biometric fingerprint locks, numeric keypads, and card systems.",
+    image: "/images/hero-smartlock.png",
+    productCount: "190+ Products",
+    subcategories: ["Digital Locks", "Fingerprint Locks", "RFID Locks"],
+  },
+  {
+    id: "fasteners",
+    name: "Fasteners",
+    slug: "fasteners",
+    description: "High-precision stainless steel bolts, industrial machine screws, and washers.",
+    image: "/images/cat-fasteners.png",
+    productCount: "1,200+ Products",
+    subcategories: ["Bolts", "Nuts", "Screws"],
+  },
 ];
