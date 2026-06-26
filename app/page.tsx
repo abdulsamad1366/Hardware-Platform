@@ -1,68 +1,170 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Shield, Award, Settings, Download, Send } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Shield, Download, Star, Award, Settings, Send, Search, ChevronDown } from "lucide-react";
+import Container from "@/components/layout/container";
+import InfiniteMarquee from "@/components/home/marquee/InfiniteMarquee";
 
 export default function Home() {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push(
+      `/products?q=${encodeURIComponent(searchQuery)}&category=${encodeURIComponent(selectedCategory)}`
+    );
+  };
+
+  const trendingQueries = ["Locks", "Door Handles", "Hinges", "Smart Locks", "Door Closers", "Glass Fittings"];
+
   return (
     <div className="min-h-screen bg-white flex flex-col font-sans">
-      {/* Navbar placeholder for navigation */}
-      <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur-md text-white border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold tracking-wider uppercase text-white">
-              Hardware<span className="text-accent">Platform</span>
-            </span>
-          </Link>
-          <nav className="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
-            <Link href="/products" className="hover:text-accent transition-colors">Products</Link>
-            <Link href="/solutions" className="hover:text-accent transition-colors">Solutions</Link>
-            <Link href="/industries" className="hover:text-accent transition-colors">Industries</Link>
-            <Link href="/catalogues" className="hover:text-accent transition-colors">Catalogues</Link>
-            <Link href="/about" className="hover:text-accent transition-colors">About</Link>
-            <Link href="/contact" className="hover:text-accent transition-colors">Contact</Link>
-          </nav>
-          <div>
-            <Link 
-              href="/rfq" 
-              className="bg-accent hover:bg-amber-600 text-primary font-semibold px-5 py-2.5 rounded-lg text-sm transition-all duration-300 shadow-soft hover:shadow-lg"
-            >
-              Request Quote
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <main className="flex-grow">
-        <section className="relative bg-primary text-white py-32 px-6 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-slate-800 via-primary to-primary opacity-90"></div>
-          <div className="relative max-w-7xl mx-auto flex flex-col items-start space-y-8">
-            <span className="text-accent uppercase tracking-widest text-sm font-semibold">
-              India's Premium B2B Destination
-            </span>
-            <h1 className="text-5xl md:text-7xl font-extrabold max-w-4xl leading-tight">
-              Industrial & Architectural Hardware Solutions
-            </h1>
-            <p className="text-lg md:text-xl text-slate-300 max-w-2xl font-light">
-              Engineered for endurance. Designed for aesthetic excellence. Partnering with dealers, wholesalers, and builders across India.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link 
-                href="/products" 
-                className="bg-accent hover:bg-amber-600 text-primary font-bold px-8 py-4 rounded-lg flex items-center justify-center space-x-2 transition-all shadow-lg cursor-pointer"
-              >
-                <span>Explore Products</span>
-                <ArrowRight size={18} />
-              </Link>
-              <Link 
-                href="/catalogues" 
-                className="border border-slate-700 hover:border-slate-500 bg-slate-900/50 hover:bg-slate-950 px-8 py-4 rounded-lg flex items-center justify-center space-x-2 transition-all cursor-pointer"
-              >
-                <Download size={18} className="text-accent" />
-                <span>Download Catalogue</span>
-              </Link>
-            </div>
+        <section className="relative w-full h-[65vh] sm:h-[75vh] lg:h-[90vh] min-h-[550px] lg:min-h-[620px] flex items-center overflow-hidden bg-primary text-white border-b border-slate-800/50">
+          
+          {/* Background Image Layer with Zoom Animation */}
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <Image
+              src="/images/hero-bg.png"
+              alt="SecureLink B2B Hardware Lifestyle Collection"
+              fill
+              priority
+              className="object-cover animate-bg-zoom filter blur-[1px] brightness-[0.70]"
+              sizes="100vw"
+            />
+            {/* Overlay Gradient Layers */}
+            <div className="absolute inset-0 bg-[#0F172A]/75 z-0" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-[#0F172A]/40 z-0" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#0F172A_80%)] z-0 opacity-80" />
           </div>
+
+          <Container className="relative z-10 w-full h-full flex flex-col justify-between py-10 lg:py-16">
+            
+            {/* Center Content: Badge, Headings & Search */}
+            <div className="flex-grow flex flex-col items-center justify-center text-center max-w-4xl mx-auto w-full space-y-6 sm:space-y-8 my-auto">
+              
+              {/* Premium Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/95 text-[10px] sm:text-xs font-semibold uppercase tracking-wider animate-in fade-in slide-in-from-bottom-2 duration-500">
+                <Shield className="w-3.5 h-3.5 text-accent fill-accent/20" />
+                <span>SECURELINK B2B HARDWARE PLATFORM</span>
+              </div>
+
+              {/* Title & Subtitle */}
+              <div className="space-y-4">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight animate-in fade-in slide-in-from-bottom-3 duration-600">
+                  Discover Premium Hardware<br />for Every Project
+                </h1>
+                <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700">
+                  Search thousands of hardware products, manufacturers and industrial solutions from one trusted platform.
+                </p>
+              </div>
+
+              {/* Glassmorphic Search Bar */}
+              <form 
+                onSubmit={handleSearch}
+                className="w-full max-w-[900px] bg-slate-950/60 backdrop-blur-lg border border-white/15 p-2.5 sm:p-3 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center gap-3 animate-in fade-in slide-in-from-bottom-5 duration-800"
+              >
+                {/* Search Input */}
+                <div className="relative flex-1 w-full flex items-center">
+                  <Search className="absolute left-4 text-slate-400 w-5 h-5 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search Locks, Door Handles, Hinges, Smart Locks..."
+                    className="w-full bg-slate-900/40 text-white placeholder-slate-400 border border-slate-800/80 focus:border-accent/50 focus:ring-1 focus:ring-accent/30 rounded-xl py-3.5 pl-12 pr-4 text-sm focus:outline-none transition-all duration-300"
+                  />
+                </div>
+
+                {/* Dropdown Select */}
+                <div className="relative w-full md:w-[220px] shrink-0">
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="w-full appearance-none bg-slate-900/40 text-white border border-slate-800/80 focus:border-accent/50 focus:ring-1 focus:ring-accent/30 rounded-xl py-3.5 pl-4 pr-10 text-sm focus:outline-none transition-all duration-300 cursor-pointer [&>option]:bg-slate-950 [&>option]:text-white"
+                  >
+                    <option value="All Categories">All Categories</option>
+                    <option value="Locks">Locks</option>
+                    <option value="Door Hardware">Door Hardware</option>
+                    <option value="Glass Hardware">Glass Hardware</option>
+                    <option value="Furniture Hardware">Furniture Hardware</option>
+                    <option value="Bathroom Accessories">Bathroom Accessories</option>
+                    <option value="Builder Hardware">Builder Hardware</option>
+                    <option value="Fasteners">Fasteners</option>
+                    <option value="Smart Locks">Smart Locks</option>
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 pointer-events-none" />
+                </div>
+
+                {/* Search Button */}
+                <button
+                  type="submit"
+                  className="w-full md:w-auto px-7 py-3.5 bg-accent hover:bg-amber-600 active:scale-[0.98] text-primary font-bold text-sm rounded-xl transition-all duration-300 shadow-lg shadow-accent/15 cursor-pointer flex items-center justify-center gap-2 shrink-0"
+                >
+                  <Search size={16} />
+                  <span>Search</span>
+                </button>
+              </form>
+
+              {/* Trending Searches Chips */}
+              <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs animate-in fade-in slide-in-from-bottom-6 duration-900">
+                <span className="text-slate-400 font-medium mr-1.5">Trending Searches:</span>
+                {trendingQueries.map((query) => (
+                  <button
+                    key={query}
+                    type="button"
+                    onClick={() => setSearchQuery(query)}
+                    className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/40 text-slate-200 hover:text-white transition-all duration-300 cursor-pointer"
+                  >
+                    {query}
+                  </button>
+                ))}
+              </div>
+
+            </div>
+
+            {/* Trust Statistics: Responsive Horizontal Scroll on Mobile, Flex on Desktop */}
+            <div className="w-full pt-8 md:pt-12 mt-auto animate-in fade-in duration-1000">
+              <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 px-4 -mx-4 md:mx-0 md:px-0 md:justify-center">
+                
+                {/* Stat Card 1 */}
+                <div className="snap-center shrink-0 w-[150px] sm:w-[170px] bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-soft hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-accent">50+</div>
+                  <div className="text-[10px] sm:text-xs text-slate-300 font-semibold uppercase tracking-wider mt-1">Product Categories</div>
+                </div>
+
+                {/* Stat Card 2 */}
+                <div className="snap-center shrink-0 w-[150px] sm:w-[170px] bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-soft hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-accent">5,000+</div>
+                  <div className="text-[10px] sm:text-xs text-slate-300 font-semibold uppercase tracking-wider mt-1 font-sans">Products Catalogued</div>
+                </div>
+
+                {/* Stat Card 3 */}
+                <div className="snap-center shrink-0 w-[150px] sm:w-[170px] bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-soft hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-accent">1,000+</div>
+                  <div className="text-[10px] sm:text-xs text-slate-300 font-semibold uppercase tracking-wider mt-1">Partner Dealers</div>
+                </div>
+
+                {/* Stat Card 4 */}
+                <div className="snap-center shrink-0 w-[150px] sm:w-[170px] bg-white/5 backdrop-blur-md border border-white/10 p-4 rounded-xl shadow-soft hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-accent">OEM</div>
+                  <div className="text-[10px] sm:text-xs text-slate-300 font-semibold uppercase tracking-wider mt-1">Manufacturing Services</div>
+                </div>
+
+              </div>
+            </div>
+
+          </Container>
         </section>
+
+        {/* Infinite Hardware Marquee */}
+        <InfiniteMarquee />
 
         {/* Feature Highlights */}
         <section className="py-24 bg-gray-bg px-6">
@@ -111,20 +213,6 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-primary text-slate-400 py-12 px-6 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm">
-          <div>
-            <p className="text-white font-semibold">Hardware Platform &copy; {new Date().getFullYear()}</p>
-            <p className="mt-1">India's Premium Industrial & Architectural fittings</p>
-          </div>
-          <div className="flex space-x-6">
-            <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
-            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link href="/rfq" className="hover:text-white transition-colors">Inquiries</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

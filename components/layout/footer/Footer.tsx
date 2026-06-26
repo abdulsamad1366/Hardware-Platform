@@ -6,7 +6,7 @@ import { contactConfig } from "@/config/contact";
 import Container from "../container";
 import FooterLinks from "./FooterLinks";
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="bg-primary text-slate-400 border-t border-slate-800 font-sans">
       {/* Top Footer Section */}
@@ -76,3 +76,6 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default Footer;
+
