@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Shield, Download, Star, Award, Settings, Send, Search, ChevronDown } from "lucide-react";
+import { ArrowRight, Shield, Search, ChevronDown } from "lucide-react";
 import Container from "@/components/layout/container";
 import InfiniteMarquee from "@/components/home/marquee/InfiniteMarquee";
 import Categories from "@/components/home/categories/Categories";
 import FeaturedCollections from "@/components/home/collections/FeaturedCollections";
 import FeaturedProducts from "@/components/home/products/FeaturedProducts";
 import ManufacturingExcellence from "@/components/home/manufacturing/ManufacturingExcellence";
+import FAQSection from "@/components/home/faq/FAQSection";
 
 export default function Home() {
   const router = useRouter();
@@ -205,51 +206,9 @@ export default function Home() {
         {/* Manufacturing Excellence Section */}
         <ManufacturingExcellence />
 
-        {/* Feature Highlights */}
-        <section className="py-24 bg-gray-bg px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <h2 className="text-3xl md:text-4xl font-extrabold text-primary mb-4">
-                Engineered for High-Performance Environments
-              </h2>
-              <p className="text-slate-600">
-                Our products meet rigorous quality benchmarks, delivering durability and architectural integrity for commercial projects.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-soft hover:shadow-lg transition-shadow duration-300 border border-slate-100">
-                <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-6 text-accent">
-                  <Shield size={24} />
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-3">Certified Quality</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  Every category is rigorously tested for load cycles, corrosion resistance, and high-frequency commercial usage.
-                </p>
-              </div>
 
-              <div className="bg-white p-8 rounded-lg shadow-soft hover:shadow-lg transition-shadow duration-300 border border-slate-100">
-                <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-6 text-accent">
-                  <Award size={24} />
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-3">Premium Materials</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  Forged from high-grade stainless steel, brass, and alloys to match contemporary architectural aesthetics.
-                </p>
-              </div>
-
-              <div className="bg-white p-8 rounded-lg shadow-soft hover:shadow-lg transition-shadow duration-300 border border-slate-100">
-                <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-6 text-accent">
-                  <Settings size={24} />
-                </div>
-                <h3 className="text-xl font-bold text-primary mb-3">B2B Customization</h3>
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  Custom sizes, finishes, and manufacturing configurations available for wholesale ordering and contractors.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* FAQ Section */}
+        <FAQSection />
       </main>
 
     </div>

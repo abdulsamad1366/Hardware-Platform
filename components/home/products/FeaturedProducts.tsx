@@ -21,9 +21,11 @@ const CATEGORIES = [
 export default function FeaturedProducts() {
   const [activeCategory, setActiveCategory] = useState("All");
 
+  const featuredProducts = products.filter(p => p.featured !== false);
+
   const filteredProducts = activeCategory === "All"
-    ? products
-    : products.filter(p => p.category === activeCategory);
+    ? featuredProducts
+    : featuredProducts.filter(p => p.category === activeCategory);
 
   return (
     <section className="py-24 lg:py-28 bg-slate-50 text-slate-900 border-b border-slate-200/50 overflow-hidden">

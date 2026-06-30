@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, FileText } from "lucide-react";
+import { ArrowRight, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Product } from "@/data/products";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useCart } from "@/context/CartContext";
 
 interface ProductCardProps {
   product: Product;
@@ -13,11 +15,22 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
+  const [isThrottled, setIsThrottled] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const { addToCart } = useCart();
 
-  const handleRequestQuote = (e: React.MouseEvent) => {
+  const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    router.push(`/rfq?product=${encodeURIComponent(product.name)}&code=${encodeURIComponent(product.code)}`);
+    if (isThrottled) return;
+
+    setIsThrottled(true);
+    setTimeout(() => setIsThrottled(false), 500);
+
+    addToCart(product);
+
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1000);
   };
 
   const cardVariants = {
@@ -114,13 +127,30 @@ export default function ProductCard({ product }: ProductCardProps) {
           <span>View Details</span>
           <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform duration-300" />
         </Link>
-        <button
-          onClick={handleRequestQuote}
-          className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-accent hover:bg-amber-600 active:scale-[0.98] text-primary font-extrabold text-xs transition-all duration-300 shadow-sm hover:shadow shadow-accent/10 cursor-pointer"
+        <motion.button
+          onClick={handleAddToCart}
+          disabled={isThrottled}
+          whileHover="hover"
+          variants={{
+            hover: { y: -2 }
+          }}
+          className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-accent hover:bg-[#c49015] active:scale-[0.98] text-primary font-extrabold text-xs transition-all duration-200 shadow-sm hover:shadow shadow-accent/10 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none"
         >
-          <FileText size={13} />
-          <span>Request Quote</span>
-        </button>
+          <motion.span
+            variants={{
+              hover: { rotate: [0, -10, 10, 0], scale: 1.1 }
+            }}
+            transition={{ duration: 0.3 }}
+            className="flex-shrink-0 flex items-center text-xs"
+          >
+            {isAdded ? (
+              <span className="font-extrabold">✓</span>
+            ) : (
+              <ShoppingCart size={13} />
+            )}
+          </motion.span>
+          <span>{isAdded ? "Added" : "Add to Cart"}</span>
+        </motion.button>
       </div>
 
     </motion.div>
