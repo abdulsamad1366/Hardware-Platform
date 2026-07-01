@@ -25,6 +25,12 @@ const collectionSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    manufacturer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Manufacturer",
+      required: [true, "Collection manufacturer owner is required"],
+      index: true,
+    },
   },
   {
     timestamps: true,
