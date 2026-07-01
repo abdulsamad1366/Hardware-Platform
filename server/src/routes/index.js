@@ -3,11 +3,13 @@ const router = express.Router();
 const authRoutes = require("./authRoutes");
 const manufacturerRoutes = require("./manufacturerRoutes");
 const productRoutes = require("./productRoutes");
+const productVariantRoutes = require("./productVariantRoutes");
 
-// Mounting versioned auth, manufacturer, and product sub-routers
+// Mounting versioned auth, manufacturer, product, and variant sub-routers
 router.use("/auth", authRoutes);
 router.use("/manufacturers", manufacturerRoutes);
 router.use("/products", productRoutes);
+router.use("/variants", productVariantRoutes);
 
 // Base health check status endpoint
 router.get("/healthcheck", (req, res) => {

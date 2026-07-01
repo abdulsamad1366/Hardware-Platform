@@ -11,6 +11,8 @@ export interface CartItem {
   category: string;
   price: number;
   quantity: number;
+  material?: string;
+  finish?: string;
 }
 
 interface CartContextType {
@@ -96,6 +98,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           category: product.category,
           price: product.price,
           quantity: 1,
+          material: product.material,
+          finish: product.finish,
         };
         return [...prevItems, newItem];
       }

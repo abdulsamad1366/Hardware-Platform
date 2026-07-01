@@ -182,7 +182,16 @@ const productSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+// Virtual Populate: associated product variants list
+productSchema.virtual("variants", {
+  ref: "ProductVariant",
+  localField: "_id",
+  foreignField: "product",
+});
 
 module.exports = mongoose.models.Product || mongoose.model("Product", productSchema);
