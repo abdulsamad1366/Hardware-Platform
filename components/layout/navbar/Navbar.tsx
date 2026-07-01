@@ -11,7 +11,7 @@ import NavLinks from "./NavLinks";
 import MobileMenu from "./MobileMenu";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
-import { AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -86,14 +86,14 @@ export function Navbar() {
               </Link>
 
               {/* Cart Icon with Live Badge */}
-              <button
-                onClick={() => setIsCartOpen(!isCartOpen)}
+              <Link
+                href="/cart"
                 className={`relative p-2 rounded-full transition-colors cursor-pointer ${
                   isScrolled 
                     ? "text-slate-600 hover:bg-slate-100 hover:text-primary" 
                     : "text-white/80 hover:bg-white/10 hover:text-white"
                 }`}
-                title="Open Cart"
+                title="View Cart Selection"
               >
                 <ShoppingCart size={19} />
                 <span 
@@ -105,7 +105,7 @@ export function Navbar() {
                 >
                   {cartCount}
                 </span>
-              </button>
+              </Link>
 
               {/* Profile Dropdown or Login Button */}
               <div className="relative">
@@ -143,7 +143,7 @@ export function Navbar() {
 
                             <div className="space-y-0.5">
                               <Link 
-                                href="/#dashboard" 
+                                href="/dashboard" 
                                 onClick={() => setIsProfileOpen(false)}
                                 className="w-full text-left block px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 text-xs font-semibold transition-all cursor-pointer select-none"
                               >
@@ -158,15 +158,13 @@ export function Navbar() {
                                 My RFQs
                               </Link>
                               
-                              <button 
-                                onClick={() => {
-                                  setIsProfileOpen(false);
-                                  setIsCartOpen(true);
-                                }}
+                              <Link 
+                                href="/cart" 
+                                onClick={() => setIsProfileOpen(false)}
                                 className="w-full text-left block px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 text-xs font-semibold transition-all cursor-pointer select-none"
                               >
                                 My Cart
-                              </button>
+                              </Link>
                               
                               <Link 
                                 href="/#profile" 
